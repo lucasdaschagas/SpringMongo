@@ -1,4 +1,4 @@
-package domain;
+package com.mongospring.mongospringprojec.domain;
 
 
 import jdk.jfr.Enabled;
@@ -7,10 +7,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
-
+@Document
 @Setter
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
@@ -18,7 +20,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private static long serialVersionUID = 1L;
 
-
+    @Id
     private String id;
     private  String name;
     private  String email;

@@ -1,6 +1,6 @@
-package repository;
+package com.mongospring.mongospringprojec.repository;
 
-import domain.User;
+import com.mongospring.mongospringprojec.domain.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
