@@ -1,22 +1,18 @@
 package com.mongospring.mongospringprojec.services;
-
 import com.mongospring.mongospringprojec.domain.User;
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mongospring.mongospringprojec.repository.UserRepository;
-
-import java.util.Arrays;
 import java.util.List;
-=======
+import com.mongospring.mongospringprojec.dto.UserDTO;
 import com.mongospring.mongospringprojec.repository.UserRepository;
-import com.mongospring.mongospringprojec.services.exception.ObjectNotFoundExeption;
+import com.mongospring.mongospringprojec.exception.ObjectNotFoundExeption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
->>>>>>> e79ffd3809b0ce4ec9d1995dd21656305a873760
+
 
 @Service
 public class UserService {
@@ -28,7 +24,6 @@ public class UserService {
         return repository.findAll();
     }
 
-<<<<<<< HEAD
     public void deleteAll() {
         repository.deleteAll();
     }
@@ -36,10 +31,6 @@ public class UserService {
     {
         repository.deleteById(id);
     }
-
-
-}
-=======
     public void delete(String id){
        repository.deleteById(id);
     }
@@ -49,7 +40,30 @@ public class UserService {
        return user.orElseThrow(() -> new ObjectNotFoundExeption("Object not found"));
     }
 
+    public User insert (User obj){
+      return repository.insert(obj);
+    }
+    public User fromDTO (UserDTO obj){
+        return new User(obj.id(), obj.name(), obj.email());
+    }
+
+    public void deleteByIDs (String id){
+        findById(id);
+        repository.deleteById(id);
+    }
+    public User update (User obj){
+        Optional<User> newObj = repository.findById(obj.getId());
+        updateUserData(newObj.get(),obj);
+        return repository.save(newObj.get());
+
+
+    }
+
+    public void updateUserData (User user, User data){
+        user.setName(data.getName());
+        user.setEmail(data.getEmail());
+    }
+
 
 
 }
->>>>>>> e79ffd3809b0ce4ec9d1995dd21656305a873760
