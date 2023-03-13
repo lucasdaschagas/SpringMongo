@@ -1,50 +1,52 @@
 package com.mongospring.mongospringprojec.config;
 
+import com.mongospring.mongospringprojec.domain.Post;
 import com.mongospring.mongospringprojec.domain.User;
+import com.mongospring.mongospringprojec.repository.PostRepository;
 import com.mongospring.mongospringprojec.repository.UserRepository;
-<<<<<<< HEAD
-import com.mongospring.mongospringprojec.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-
-import java.util.Arrays;
-
-public class Instantiation implements CommandLineRunner {
-    @Autowired
-    private UserService repository;
-
-    @Override
-    public void run(String... args) throws Exception {
-
-        repository.deleteAll();
-        User maria = new User(null, "Maria Brown", "maria@gmail.com");
-        User alex = new User(null, "Alex Green", "alex@gmail.com");
-        User bob = new User(null, "Bob Grey", "bob@gmail.com");
-
-
-    }
-
-=======
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.TimeZone;
+
 @Configuration
 public class Instantiation implements CommandLineRunner {
 
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
+    @Autowired
+    private PostRepository postRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
-        repository.deleteAll();
+        userRepository.deleteAll();
+        postRepository.deleteAll();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         User maria = new User("1","Maria Brown", "mariabrown@gmail.com");
         User bob = new User("2","Bob Green", "bobgreen@gmail.com");
         User mark = new User("3","Mark Blue", "markblue@gmail.com");
 
-        repository.saveAll(Arrays.asList(maria,bob,mark));
+        userRepository.saveAll(Arrays.asList(maria,bob,mark));
+
+        Post post1 = new Post(null,sdf.parse("21/03/2018"),"Partiu viagem",
+                "Vou viajar para São Paulo, abraços",maria);
+
+        Post post2 = new Post(null,sdf.parse("25/03/2019"),"Voltando da viagem",
+                "Vou voltar para casa, adeus",maria);
+
+        postRepository.saveAll(Arrays.asList(post1,post2));
+
+
+
+
+
     }
->>>>>>> e79ffd3809b0ce4ec9d1995dd21656305a873760
+
 }
