@@ -1,4 +1,5 @@
 package com.mongospring.mongospringprojec.controller;
+import com.mongospring.mongospringprojec.domain.Post;
 import com.mongospring.mongospringprojec.domain.User;
 import com.mongospring.mongospringprojec.dto.UserDTO;
 import com.mongospring.mongospringprojec.services.UserService;
@@ -62,4 +63,11 @@ public class UserController {
 
     }
 
+
+    @RequestMapping(value = "/{id}/posts")
+    @GetMapping
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = repository.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+}
 }
