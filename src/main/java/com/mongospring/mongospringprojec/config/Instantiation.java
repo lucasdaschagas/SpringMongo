@@ -3,6 +3,7 @@ package com.mongospring.mongospringprojec.config;
 import com.mongospring.mongospringprojec.domain.Post;
 import com.mongospring.mongospringprojec.domain.User;
 import com.mongospring.mongospringprojec.dto.AuthorDTO;
+import com.mongospring.mongospringprojec.dto.CommentsDTO;
 import com.mongospring.mongospringprojec.repository.PostRepository;
 import com.mongospring.mongospringprojec.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,16 @@ public class Instantiation implements CommandLineRunner {
 
         Post post2 = new Post(null,sdf.parse("25/03/2019"),"Voltando da viagem",
                 "Vou voltar para casa, adeus",new AuthorDTO(maria));
+
+        CommentsDTO c1 = new CommentsDTO("Boa viajem !!!", sdf.parse("22/03/2018"), new AuthorDTO(bob));
+
+        CommentsDTO c2 = new CommentsDTO("aproveite !!!", sdf.parse("23/03/2018"), new AuthorDTO(bob));
+
+        CommentsDTO c3 = new CommentsDTO("Show de bola !!!", sdf.parse("24/03/2018"), new AuthorDTO(mark));
+
+        post1.getComments().addAll(Arrays.asList(c1,c2));
+        post2.getComments().addAll(Arrays.asList(c3));
+
 
         postRepository.saveAll(Arrays.asList(post1,post2));
 
