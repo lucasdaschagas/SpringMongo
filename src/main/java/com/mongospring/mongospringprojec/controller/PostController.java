@@ -1,5 +1,6 @@
 package com.mongospring.mongospringprojec.controller;
 
+import com.mongospring.mongospringprojec.controller.util.URL;
 import com.mongospring.mongospringprojec.domain.Post;
 import com.mongospring.mongospringprojec.domain.User;
 import com.mongospring.mongospringprojec.dto.UserDTO;
@@ -27,4 +28,12 @@ public class PostController {
 
     }
 
+    @GetMapping
+    @RequestMapping(value = "/titlesearch")
+    public ResponseEntity<List<Post>> findByTitle (@RequestParam(value = "text", defaultValue = "") String text){
+        text = URL.decodeParam(text);
+        List<Post> list = repository.findByTitle(text);
+        return ResponseEntity.ok().body(list);
+
+    }
 }
